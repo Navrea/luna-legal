@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Nouveau mot de passe — Luna</title>
+<style>
+  :root { --bg:#FAF5F0; --card:#fff; --rose:#B5446E; --plum:#1C1434; --muted:#6B6270; --border:#EDE6E0; --danger:#C0392B; --ok:#2E7D5B; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:28px 18px 64px; background:var(--bg); color:var(--plum);
+         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         line-height:1.6; font-size:16px; }
+  main { max-width:460px; margin:0 auto; background:var(--card); border-radius:18px;
+         padding:30px 26px; border:1px solid var(--border); }
+  h1 { font-size:24px; margin:0 0 6px; letter-spacing:-0.5px; }
+  .sub { color:var(--muted); font-size:14.5px; margin:0 0 22px; }
+  label { display:block; font-size:12px; font-weight:700; color:var(--muted);
+          letter-spacing:0.5px; margin:0 0 8px; }
+  input[type=password], input[type=text] {
+    width:100%; padding:14px; font-size:16px; color:var(--plum);
+    background:var(--bg); border:1px solid var(--border); border-radius:12px; }
+  .field { margin-bottom:16px; }
+  .hint { font-size:12.5px; color:var(--muted); margin:8px 0 0; }
+  button { width:100%; padding:16px; font-size:16px; font-weight:700; color:#fff;
+           background:var(--rose); border:0; border-radius:16px; cursor:pointer; margin-top:6px; }
+  button:disabled { opacity:0.55; cursor:default; }
+  .encart { background:#FDE8EE; border-radius:12px; padding:14px 16px; margin:20px 0 0; font-size:13.5px; }
+  .msg { border-radius:12px; padding:14px 16px; margin:18px 0 0; font-size:14px; display:none; }
+  .msg.err { background:#FBE9E7; color:var(--danger); display:block; }
+  .msg.ok  { background:#E6F4EC; color:var(--ok); display:block; }
+  .reveal { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted);
+            margin-top:10px; cursor:pointer; }
+  footer { max-width:460px; margin:22px auto 0; color:var(--muted); font-size:13px; text-align:center; }
+  a { color:var(--rose); }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141018; --card:#1E1826; --plum:#F2ECF2; --muted:#A79FAF; --border:#332B3B; }
+    .encart { background:#2C1F2A; }
+    .msg.err { background:#3A2020; }
+    .msg.ok  { background:#1D2E26; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Nouveau mot de passe</h1>
+  <p class="sub">Choisis un nouveau mot de passe pour ton compte Luna.</p>
+
+  <div id="form">
+    <div class="field">
+      <label for="pw">Nouveau mot de passe</label>
+      <input id="pw" type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false">
+      <p class="hint">12 caractères minimum.</p>
+    </div>
+    <div class="field">
+      <label for="pw2">Confirme le mot de passe</label>
+      <input id="pw2" type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false">
+    </div>
+    <label class="reveal"><input type="checkbox" id="reveal"> Afficher les mots de passe</label>
+    <button id="go">Enregistrer</button>
+  </div>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="encart">
+    <strong>Ce qui se passe ensuite.</strong> Tes données sont chiffrées avec une clé liée à ton
+    mot de passe. En le changeant ici, l'application ne pourra plus la déverrouiller toute seule :
+    à ta prochaine connexion, Luna te demandera ta <strong>clé de récupération</strong>, celle qui
+    t'a été remise à l'inscription. C'est normal, et c'est ce qui garantit que personne d'autre
+    que toi n'accède à ton journal.
+  </div>
+</main>
+<footer>
+  Luna &middot; <a href="./">documents légaux</a> &middot;
+  <a href="mailto:navrea.dev@gmail.com">navrea.dev@gmail.com</a>
+</footer>
+
+<script>
+(function () {
+  var SUPABASE_URL = 'https\:\/\/xbzqqneoxurmbifisjds\.supabase\.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhienFxbmVveHVybWJpZmlzamRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MzA3MTgsImV4cCI6MjA5NDUwNjcxOH0\.TOB2Z1VcXQNV8Gz0\-\-qgj0vzGN6ixG91OggUx7SP\-1U';
+
+  var msg = document.getElementById('msg');
+  var form = document.getElementById('form');
+  var btn = document.getElementById('go');
+  var pw = document.getElementById('pw');
+  var pw2 = document.getElementById('pw2');
+
+  function show(text, kind) {
+    msg.textContent = text;
+    msg.className = 'msg ' + kind;
+  }
+
+  document.getElementById('reveal').addEventListener('change', function (e) {
+    var t = e.target.checked ? 'text' : 'password';
+    pw.type = t; pw2.type = t;
+  });
+
+  // Supabase renvoie les jetons dans le FRAGMENT de l'URL (après le #).
+  // Un fragment n'est jamais transmis au serveur : GitHub ne voit donc
+  // jamais ce jeton, il ne vit que dans le navigateur.
+  var hash = window.location.hash.replace(/^#/, '');
+  var params = new URLSearchParams(hash);
+  var accessToken = params.get('access_token');
+  var errorDescription = params.get('error_description');
+
+  if (errorDescription) {
+    form.style.display = 'none';
+    show('Ce lien n’est plus valable : ' + errorDescription + ' Demande un nouveau lien depuis l’application.', 'err');
+    return;
+  }
+
+  if (!accessToken) {
+    form.style.display = 'none';
+    show('Lien incomplet ou expiré. Les liens de réinitialisation ne sont valables qu’une heure. Redemande-en un depuis l’application, écran « Mot de passe oublié ».', 'err');
+    return;
+  }
+
+  // On retire les jetons de la barre d'adresse : ils ne restent ni dans
+  // l'historique ni dans un partage d'écran accidentel.
+  history.replaceState(null, '', window.location.pathname);
+
+  btn.addEventListener('click', async function () {
+    var a = pw.value;
+    var b = pw2.value;
+
+    if (a.length < 12) { show('Le mot de passe doit faire au moins 12 caractères.', 'err'); return; }
+    if (a !== b) { show('Les deux mots de passe ne sont pas identiques.', 'err'); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Enregistrement…';
+
+    try {
+      var res = await fetch(SUPABASE_URL + '/auth/v1/user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + accessToken
+        },
+        body: JSON.stringify({ password: a })
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        show('Mot de passe modifié. Retourne dans l’application et connecte-toi avec ce nouveau mot de passe. Luna te demandera ensuite ta clé de récupération.', 'ok');
+        return;
+      }
+
+      var detail = '';
+      try {
+        var body = await res.json();
+        detail = body.msg || body.message || body.error_description || '';
+      } catch (e) { /* réponse non JSON : on reste sur le message générique */ }
+
+      if (res.status === 401 || res.status === 403) {
+        form.style.display = 'none';
+        show('Ce lien a expiré ou a déjà été utilisé. Redemande un lien depuis l’application.', 'err');
+      } else {
+        show('La modification a échoué. ' + detail, 'err');
+        btn.disabled = false;
+        btn.textContent = 'Enregistrer';
+      }
+    } catch (e) {
+      show('Impossible de joindre le serveur. Vérifie ta connexion et réessaie.', 'err');
+      btn.disabled = false;
+      btn.textContent = 'Enregistrer';
+    }
+  });
+})();
+</script>
+</body>
+</html>
