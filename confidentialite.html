@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Politique de confidentialité — Luna</title>
+<style>
+  :root { --bg:#FAF5F0; --card:#fff; --rose:#B5446E; --plum:#1C1434; --muted:#6B6270; --border:#EDE6E0; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:28px 18px 64px; background:var(--bg); color:var(--plum);
+         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         line-height:1.65; font-size:16px; }
+  main { max-width:760px; margin:0 auto; background:var(--card); border-radius:18px;
+         padding:32px 28px; border:1px solid var(--border); }
+  h1 { font-size:28px; margin:0 0 6px; letter-spacing:-0.5px; }
+  h2 { font-size:19px; margin:34px 0 10px; color:var(--rose); letter-spacing:-0.2px; }
+  h3 { font-size:16px; margin:22px 0 6px; }
+  .maj { color:var(--muted); font-size:14px; margin:0 0 8px; }
+  .encart { background:#FDE8EE; border-radius:12px; padding:14px 16px; margin:18px 0; font-size:15px; }
+  table { width:100%; border-collapse:collapse; margin:14px 0; font-size:14.5px; display:block; overflow-x:auto; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  th { color:var(--muted); font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:0.6px; }
+  ul { padding-left:20px; } li { margin:5px 0; }
+  a { color:var(--rose); }
+  footer { max-width:760px; margin:22px auto 0; color:var(--muted); font-size:13px; text-align:center; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141018; --card:#1E1826; --plum:#F2ECF2; --muted:#A79FAF; --border:#332B3B; }
+    .encart { background:#2C1F2A; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Politique de confidentialité</h1>
+<p class="maj">Application Luna &middot; Dernière mise à jour : 10 août 2026</p>
+
+<div class="encart">
+  <strong>En une phrase :</strong> tout ce qui te concerne (cycle, symptômes, douleurs, humeur, troubles
+  déclarés, prénom) est chiffré sur ton téléphone avant d'être sauvegardé. Nous ne pouvons pas le lire.
+  Ne subsistent, côté serveur, que ton adresse email et des données techniques sans contenu.
+</div>
+
+<h2>1. Qui est responsable de tes données</h2>
+<p>
+  Luna est éditée par Alexis Barthou, éditeur individuel résidant en France, qui publie ses
+  applications sous le nom <strong>Navrea</strong>.
+  Contact pour toute question ou demande relative à tes données :
+  <a href="mailto:navrea.dev@gmail.com">navrea.dev@gmail.com</a>.
+</p>
+
+<h2>2. Le principe : nous ne pouvons pas lire tes données de santé</h2>
+<p>
+  Luna applique un chiffrement dit « de bout en bout » (ou <em>zero-knowledge</em>). Concrètement :
+</p>
+<ul>
+  <li>La clé qui protège tes données est dérivée de ton mot de passe et vit <strong>sur ton téléphone</strong>.</li>
+  <li>Tes données de santé sont chiffrées <strong>avant</strong> de quitter l'appareil.</li>
+  <li>Le serveur ne reçoit que des blocs illisibles. Nous n'avons aucun moyen technique de les déchiffrer.</li>
+  <li>Une clé de récupération t'est remise à l'inscription. C'est le seul moyen de retrouver tes données si tu
+      perds ton mot de passe. <strong>Si tu perds les deux, tes données sont définitivement irrécupérables,
+      y compris pour nous.</strong> C'est la contrepartie assumée de cette protection.</li>
+</ul>
+
+<h2>3. Quelles données sont traitées</h2>
+
+<h3>Chiffré — illisible par nous</h3>
+<table>
+  <tr><th>Donnée</th><th>À quoi elle sert</th></tr>
+  <tr><td>Prénom</td><td>Personnaliser l'affichage dans l'app</td></tr>
+  <tr><td>Dates de règles, durées de cycle</td><td>Calculer tes prédictions</td></tr>
+  <tr><td>Flux, humeur, symptômes, douleur, notes libres</td><td>Ton journal quotidien et tes statistiques</td></tr>
+  <tr><td>Vie intime (rapport, protection)</td><td>Suivi que tu choisis de renseigner</td></tr>
+  <tr><td>Cartes de douleur localisée</td><td>Préparer une consultation médicale</td></tr>
+  <tr><td>Troubles du cycle déclarés</td><td>Orienter les informations affichées</td></tr>
+  <tr><td>Contraception, réglages et messages de rappel</td><td>Personnaliser les notifications</td></tr>
+</table>
+
+<h3>En clair — technique, sans contenu de santé</h3>
+<table>
+  <tr><th>Donnée</th><th>Pourquoi</th></tr>
+  <tr><td>Adresse email</td><td>Créer ton compte et te reconnecter</td></tr>
+  <tr><td>Identifiants techniques (UUID)</td><td>Relier tes données à ton compte</td></tr>
+  <tr><td>Dates de sauvegarde</td><td>Inhérent à tout serveur qui reçoit une écriture</td></tr>
+  <tr><td>Compteurs de jeu (points, badges, séries, thème)</td><td>Fonctions ludiques, aucune donnée de santé</td></tr>
+  <tr><td>Matériel de clé chiffré</td><td>Permettre le déverrouillage sur ton appareil</td></tr>
+</table>
+
+<h3>Ce que nous ne collectons pas</h3>
+<ul>
+  <li>Aucune donnée de localisation.</li>
+  <li>Aucun identifiant publicitaire, aucun traceur, aucune publicité.</li>
+  <li>Aucun outil d'analyse d'audience ni de rapport de plantage.</li>
+  <li>Aucun accès à tes contacts, photos, micro ou appareil photo.</li>
+  <li>Aucune revente ni partage commercial de données. Jamais.</li>
+</ul>
+
+<h2>4. Ce que le serveur peut malgré tout déduire (limites assumées)</h2>
+<p>
+  Par honnêteté, voici ce que le chiffrement ne masque pas : le fait qu'une sauvegarde a eu lieu
+  à un instant donné, et le nombre d'enregistrements de ton compte. Aucun contenu, aucune date de
+  cycle, aucun symptôme n'est lisible pour autant. C'est un plancher technique commun à tout service
+  qui reçoit des écritures, et nous préférons le dire plutôt que de promettre l'impossible.
+</p>
+
+<h2>5. Bases légales du traitement (RGPD)</h2>
+<ul>
+  <li><strong>Données de santé</strong> (article 9.2.a) : ton consentement explicite, donné en créant ton compte
+      et en renseignant librement chaque information. Tout est facultatif et retirable.</li>
+  <li><strong>Compte et authentification</strong> (article 6.1.b) : exécution du service que tu demandes.</li>
+</ul>
+
+<h2>6. Hébergement et sous-traitants</h2>
+<p>
+  Les données chiffrées sont hébergées par <strong>Supabase</strong>, qui agit comme sous-traitant technique.
+  Supabase héberge uniquement des blocs chiffrés et n'a aucun moyen d'en lire le contenu.
+  Aucun autre prestataire n'a accès à tes données.
+</p>
+
+<h2>7. Durée de conservation</h2>
+<p>
+  Tes données sont conservées tant que ton compte existe. La suppression de ton compte, depuis
+  <em>Profil &rsaquo; Compte &rsaquo; Supprimer mon compte</em>, efface immédiatement et définitivement
+  l'ensemble de tes enregistrements. Il n'existe aucune copie de sauvegarde déchiffrable.
+</p>
+
+<h2>8. Tes droits</h2>
+<p>
+  Conformément au RGPD, tu disposes des droits d'accès, de rectification, d'effacement, de portabilité,
+  de limitation et d'opposition. En pratique :
+</p>
+<ul>
+  <li><strong>Accès et portabilité :</strong> tes données n'étant lisibles que sur ton appareil, tu les exportes
+      toi-même depuis l'app (récapitulatif PDF), sans passer par nous. C'est une conséquence directe du
+      chiffrement, et non un refus de notre part.</li>
+  <li><strong>Rectification :</strong> directement dans l'app, à tout moment.</li>
+  <li><strong>Effacement :</strong> suppression du compte depuis l'app (voir article 7).</li>
+  <li><strong>Retrait du consentement :</strong> en supprimant les informations concernées ou ton compte.</li>
+</ul>
+<p>
+  Pour toute demande : <a href="mailto:navrea.dev@gmail.com">navrea.dev@gmail.com</a>.
+  Tu peux également introduire une réclamation auprès de la CNIL
+  (<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>).
+</p>
+
+<h2>9. Notifications</h2>
+<p>
+  Les rappels de Luna sont des notifications <strong>locales</strong> : elles sont programmées sur ton téléphone
+  et ne transitent par aucun serveur. Leur texte est personnalisable et peut être volontairement neutre,
+  afin que rien de personnel n'apparaisse sur ton écran verrouillé. Tu peux les désactiver à tout moment.
+</p>
+
+<h2>10. Récapitulatif médical</h2>
+<p>
+  Le document PDF destiné à ton médecin est généré <strong>sur ton téléphone</strong>. Il n'est envoyé
+  à aucun serveur. Tu décides seule à qui le transmettre, via le partage de ton appareil.
+</p>
+
+<h2>11. Mineurs</h2>
+<p>
+  Luna n'est pas destinée aux enfants de moins de 13 ans. Si tu as moins de 15 ans (âge du consentement
+  numérique en France), l'accord d'un titulaire de l'autorité parentale est requis.
+</p>
+
+<h2>12. Avertissement médical</h2>
+<p>
+  Luna est une application de bien-être et d'information. Elle ne pose aucun diagnostic, ne propose
+  aucun traitement et ne remplace en aucun cas l'avis d'un professionnel de santé. Les prédictions de
+  cycle sont des estimations statistiques et <strong>ne constituent pas un moyen de contraception</strong>.
+</p>
+
+<h2>13. Modifications</h2>
+<p>
+  Toute évolution de cette politique sera publiée sur cette page, avec mise à jour de la date en tête
+  de document. Les changements substantiels seront signalés dans l'application.
+</p>
+
+</main>
+<footer>Luna &middot; Suivi de cycle chiffré de bout en bout</footer>
+</body>
+</html>
